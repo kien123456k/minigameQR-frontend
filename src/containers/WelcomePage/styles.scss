@@ -1,0 +1,30 @@
+.form-wrapper {
+  width: 290px;
+  margin: 0 auto;
+}
+.login-button {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+  background-size: 130%;
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.login-button:hover {
+  background-position: right;
+}
+.logoMiniGame {
+  margin: 0 auto;
+  width: 250px;
+  display: block;
+}

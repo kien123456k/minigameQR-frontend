@@ -1,0 +1,23 @@
+.container {
+  background-color: #37af47;
+  width: 70%;
+  color: white;
+  margin: 20px auto;
+  font-size: 2fr;
+  padding: 10px;
+  border-radius: 14px;
+}
+
+.container:hover {
+  background-color: rgb(3, 128, 3);
+  transition: 0.5s;
+}
+.choosing-container {
+  background-color: rgb(2, 95, 2);
+  width: 70%;
+  color: white;
+  margin: 20px auto;
+  font-size: 2fr;
+  padding: 10px;
+  border-radius: 14px;
+}

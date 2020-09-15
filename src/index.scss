@@ -1,0 +1,16 @@
+@import './variable.scss';
+@import './components/Answer-box/styles.scss';
+@import './containers/Quiz/Question/styles.scss';
+
+@import './containers/Quiz/styles.scss';
+@import './containers/Quiz/Header/styles.scss';
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+body {
+  background-color: $color-background !important;
+}
