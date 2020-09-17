@@ -1,4 +1,4 @@
-# Minigame QR Code
+# Minigame QR Code - FE
 
 ## This is a minigame of F-code club for the orientation to welcome K16 of FPT University HCM.
 
