@@ -1,38 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import InputField from '../../components/InputField';
 import './styles.scss';
-import Axios from 'axios';
-import { API_ROOT_URL } from '../../configurations';
 import logoMiniGame from '../../assets/images/logo.png';
-
+import { post } from '../../utils/ApiCaller';
 const WelcomePage = () => {
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isError, setIsError] = useState(false);
   const onSubmit = async (data) => {
     try {
+      setIsSubmitted(true);
+      setIsError(false);
       const token = JSON.parse(localStorage.getItem('token'));
-      const response = await Axios({
-        method: 'POST',
-        url: `${API_ROOT_URL}/user/register`,
-        data: {
-          token: token,
-          name: data.name,
-          studentID: data.studentID,
-        },
+      const response = await post('/user/register', {
+        token: token,
+        name: data.name,
+        studentID: data.studentID,
       });
-
       if (response.data.success) {
         localStorage.setItem('name', data.name);
         localStorage.setItem('studentID', data.studentID);
         // redirect to Introduction
-        let path = '/introduction';
+        let path = '/quiz-instruction';
         history.push(path);
       }
-    } catch (error) {
-      console.log(error.data);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 403) {
+        setIsSubmitted(false);
+        setIsError(true);
+      } else if (ex.response.status === 400) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('studentID');
+        localStorage.removeItem('name');
+        let path = '/invalid-token';
+        history.push(path);
+      }
     }
   };
   return (
@@ -62,7 +68,16 @@ const WelcomePage = () => {
             required: `MSSV không được bỏ trống`,
           })}
         />
-        <input type='submit' className='login-button' value='Submit' />
+        <span className='error' style={{ display: !isError && 'none' }}>
+          Vui lòng nhập đúng MSSV và tên đã đăng kí với mã QR này.
+        </span>
+        <button className='login-button'>
+          <i
+            className='fa fa-refresh fa-spin'
+            style={{ display: !isSubmitted && 'none' }}
+          ></i>{' '}
+          Submit
+        </button>
       </form>
     </div>
   );

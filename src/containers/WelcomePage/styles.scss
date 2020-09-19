@@ -13,7 +13,7 @@
   background-size: 130%;
   font-size: 1.2rem;
   color: #fff;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
   margin: 1rem 0;
   cursor: pointer;
@@ -27,4 +27,7 @@
   margin: 0 auto;
   width: 250px;
   display: block;
+}
+.error {
+  color: rgba(241, 82, 9, 0.9);
 }

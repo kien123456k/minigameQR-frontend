@@ -2,8 +2,6 @@ import React from 'react';
 import Timer from 'react.timer';
 import { Progress } from 'antd';
 import 'antd/dist/antd.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
 const Header = ({ indexOfQuestion }) => {
   return (
     <nav>
@@ -14,7 +12,7 @@ const Header = ({ indexOfQuestion }) => {
           <Progress percent={indexOfQuestion * 10} showInfo={false} />
         </div>
         <div className='header-timer'>
-          <FontAwesomeIcon icon={faClock} />
+          <i className='fa fa-clock'></i>
           <Timer />
         </div>
       </div>
