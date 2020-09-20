@@ -5,19 +5,21 @@ const AnswerBox = ({
   arrOfAnswer,
   index,
   indexOfQuestion,
-  nextQuestion,
 }) => {
   const handleClick = () => {
     let arr = arrOfAnswer;
     if (arr[indexOfQuestion - 1] !== index + 1) {
       arr[indexOfQuestion - 1] = index + 1;
       setArrOfAnswer([...arr]);
-      nextQuestion();
     }
   };
   return (
     <div
-      className={arrOfAnswer[indexOfQuestion - 1] === index + 1 ? 'choosing-container container' : 'container'}
+      className={
+        arrOfAnswer[indexOfQuestion - 1] === index + 1
+          ? 'choosing-container container'
+          : 'container'
+      }
       onClick={handleClick}
     >
       {answer}

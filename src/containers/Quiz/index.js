@@ -3,8 +3,6 @@ import Axios from 'axios';
 import { API_ROOT_URL } from '../../configurations';
 import Question from './Question';
 import Answer from './Answer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './styles.scss';
 import Header from './Header';
 const Quiz = () => {
@@ -51,6 +49,7 @@ const Quiz = () => {
           answer: arrOfAnswer,
         },
       });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -69,12 +68,12 @@ const Quiz = () => {
       <div className='navigation'>
         {indexOfQuestion > 1 && (
           <button className='btn btn-prev' onClick={() => preQuestion()}>
-            <FontAwesomeIcon icon={faArrowLeft} />
+            <i className='fa fa-arrow-left'></i>
           </button>
         )}
         {indexOfQuestion < 10 && (
           <button className='btn btn-next' onClick={() => nextQuestion()}>
-            <FontAwesomeIcon icon={faArrowRight} />
+            <i className='fa fa-arrow-right'></i>
           </button>
         )}
       </div>

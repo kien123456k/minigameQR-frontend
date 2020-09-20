@@ -6,7 +6,6 @@ const Answer = ({
   indexOfQuestion,
   arrOfAnswer,
   setArrOfAnswer,
-  nextQuestion,
 }) => {
   return (
     <div className='answer-container'>
@@ -19,7 +18,6 @@ const Answer = ({
             setArrOfAnswer={setArrOfAnswer}
             index={index}
             indexOfQuestion={indexOfQuestion}
-            nextQuestion={nextQuestion}
           />
         );
       })}
