@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { post } from '../../utils/ApiCaller';
 import { API_ROOT_URL } from '../../configurations';
 import Question from './Question';
 import Answer from './Answer';
 import './styles.scss';
 import Header from './Header';
+import { useHistory } from 'react-router-dom';
 const Quiz = () => {
   const data = JSON.parse(localStorage.getItem('questions'));
   const token = JSON.parse(localStorage.getItem('token'));
   const name = JSON.parse(localStorage.getItem('name'));
   const studentID = JSON.parse(localStorage.getItem('studentID'));
+  const history = useHistory();
   const [indexOfQuestion, setIndexOfQuestion] = useState(1);
   const [arrOfAnswer, setArrOfAnswer] = useState([
     0,
@@ -40,7 +41,6 @@ const Quiz = () => {
   const handleSubmit = async () => {
     setIsOpen(false);
     try {
-      console.log('hihih');
       const response = await Axios({
         method: 'POST',
         url: `${API_ROOT_URL}/user/end`,
@@ -51,15 +51,21 @@ const Quiz = () => {
           answer: arrOfAnswer,
         },
       });
-      // const response = await post(`${API_ROOT_URL}/user/end`, {
-      //   token: token,
-      //   name: name,
-      //   studentID: studentID,
-      //   answer: arrOfAnswer,
-      // });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+      if (response.data.success) {
+        let path = '/quiz-summary';
+        history.push(path);
+      }
+    } catch (ex) {
+      if (ex.response && ex.response.status === 403) {
+        let path = '/quiz-summary';
+        history.push(path);
+      } else if (ex.response && ex.response.status === 400) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('studentID');
+        localStorage.removeItem('name');
+        let path = '/invalid-token';
+        history.push(path);
+      }
     }
   };
   return (

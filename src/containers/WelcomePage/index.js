@@ -25,7 +25,10 @@ const WelcomePage = () => {
       });
       if (response.data.success) {
         localStorage.setItem('name', JSON.stringify(data.name));
-        localStorage.setItem('studentID', JSON.stringify(data.studentID));
+        localStorage.setItem(
+          'studentID',
+          JSON.stringify(data.studentID.toUpperCase())
+        );
         // redirect to Introduction
         let path = '/quiz-instruction';
         history.push(path);
@@ -73,7 +76,7 @@ const WelcomePage = () => {
         <span className='error' style={{ display: !isError && 'none' }}>
           Vui lòng nhập đúng MSSV và tên đã đăng kí với mã QR này.
         </span>
-        <button className='login-button'>
+        <button className='login-button' disabled={isSubmitted}>
           <i
             className='fa fa-refresh fa-spin'
             style={{ display: !isSubmitted && 'none' }}

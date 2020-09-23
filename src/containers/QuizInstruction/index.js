@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React from 'react';
-import { useHistory, Link, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import { API_ROOT_URL } from '../../configurations';
 
@@ -8,8 +8,8 @@ const QuizInstruction = () => {
   const history = useHistory();
   const handleClick = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const name = localStorage.getItem('name');
-    const studentID = localStorage.getItem('studentID');
+    const name = JSON.parse(localStorage.getItem('name'));
+    const studentID = JSON.parse(localStorage.getItem('studentID'));
     try {
       const response = await Axios({
         method: 'GET',
