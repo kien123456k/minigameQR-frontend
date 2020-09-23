@@ -7,7 +7,7 @@ const App = () => {
   const urlParams = new URLSearchParams(queryString);
   const token = urlParams.get('token');
   if (token !== null) {
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', JSON.stringify(token));
   }
 
   return <BrowserRouter>{Routes}</BrowserRouter>;

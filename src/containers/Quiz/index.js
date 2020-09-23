@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
+import { post } from '../../utils/ApiCaller';
 import { API_ROOT_URL } from '../../configurations';
 import Question from './Question';
 import Answer from './Answer';
@@ -8,8 +9,8 @@ import Header from './Header';
 const Quiz = () => {
   const data = JSON.parse(localStorage.getItem('questions'));
   const token = JSON.parse(localStorage.getItem('token'));
-  const name = localStorage.getItem('name');
-  const studentID = localStorage.getItem('studentID');
+  const name = JSON.parse(localStorage.getItem('name'));
+  const studentID = JSON.parse(localStorage.getItem('studentID'));
   const [indexOfQuestion, setIndexOfQuestion] = useState(1);
   const [arrOfAnswer, setArrOfAnswer] = useState([
     0,
@@ -39,6 +40,7 @@ const Quiz = () => {
   const handleSubmit = async () => {
     setIsOpen(false);
     try {
+      console.log('hihih');
       const response = await Axios({
         method: 'POST',
         url: `${API_ROOT_URL}/user/end`,
@@ -49,6 +51,12 @@ const Quiz = () => {
           answer: arrOfAnswer,
         },
       });
+      // const response = await post(`${API_ROOT_URL}/user/end`, {
+      //   token: token,
+      //   name: name,
+      //   studentID: studentID,
+      //   answer: arrOfAnswer,
+      // });
       console.log(response);
     } catch (error) {
       console.log(error);

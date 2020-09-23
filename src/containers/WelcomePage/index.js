@@ -6,6 +6,7 @@ import InputField from '../../components/InputField';
 import './styles.scss';
 import logoMiniGame from '../../assets/images/logo.png';
 import { post } from '../../utils/ApiCaller';
+
 const WelcomePage = () => {
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
@@ -13,6 +14,7 @@ const WelcomePage = () => {
   const [isError, setIsError] = useState(false);
   const onSubmit = async (data) => {
     try {
+      console.log('hihi');
       setIsSubmitted(true);
       setIsError(false);
       const token = JSON.parse(localStorage.getItem('token'));
@@ -22,8 +24,8 @@ const WelcomePage = () => {
         studentID: data.studentID,
       });
       if (response.data.success) {
-        localStorage.setItem('name', data.name);
-        localStorage.setItem('studentID', data.studentID);
+        localStorage.setItem('name', JSON.stringify(data.name));
+        localStorage.setItem('studentID', JSON.stringify(data.studentID));
         // redirect to Introduction
         let path = '/quiz-instruction';
         history.push(path);
@@ -32,7 +34,7 @@ const WelcomePage = () => {
       if (ex.response && ex.response.status === 403) {
         setIsSubmitted(false);
         setIsError(true);
-      } else if (ex.response.status === 400) {
+      } else if (ex.response && ex.response.status === 400) {
         localStorage.removeItem('token');
         localStorage.removeItem('studentID');
         localStorage.removeItem('name');
