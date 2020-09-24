@@ -13,12 +13,7 @@ const Quiz = () => {
   const studentID = JSON.parse(localStorage.getItem('studentID'));
   const history = useHistory();
   const [indexOfQuestion, setIndexOfQuestion] = useState(1);
-  const [arrOfAnswer, setArrOfAnswer] = useState(
-    JSON.parse(localStorage.getItem('answer')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  );
-  useEffect(() => {
-    localStorage.setItem('answer', JSON.stringify(arrOfAnswer));
-  }, [arrOfAnswer]);
+
   const [isOpen, setIsOpen] = useState(false);
   const preQuestion = () => {
     if (indexOfQuestion > 1) setIndexOfQuestion(indexOfQuestion - 1);
@@ -34,6 +29,7 @@ const Quiz = () => {
   };
   const handleSubmit = async () => {
     setIsOpen(false);
+    const arrOfAnswer = JSON.parse(localStorage.getItem('answer'));
     try {
       const response = await Axios({
         method: 'POST',
@@ -69,8 +65,6 @@ const Quiz = () => {
       <Answer
         indexOfQuestion={indexOfQuestion}
         multipleChoice={data[indexOfQuestion - 1].multipleChoice}
-        arrOfAnswer={arrOfAnswer}
-        setArrOfAnswer={setArrOfAnswer}
         nextQuestion={nextQuestion}
       />
       <div className='navigation'>
