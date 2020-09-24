@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { API_ROOT_URL } from '../../configurations';
 import Question from './Question';
@@ -13,18 +13,12 @@ const Quiz = () => {
   const studentID = JSON.parse(localStorage.getItem('studentID'));
   const history = useHistory();
   const [indexOfQuestion, setIndexOfQuestion] = useState(1);
-  const [arrOfAnswer, setArrOfAnswer] = useState([
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-  ]);
+  const [arrOfAnswer, setArrOfAnswer] = useState(
+    JSON.parse(localStorage.getItem('answer')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  );
+  useEffect(() => {
+    localStorage.setItem('answer', JSON.stringify(arrOfAnswer));
+  }, [arrOfAnswer]);
   const [isOpen, setIsOpen] = useState(false);
   const preQuestion = () => {
     if (indexOfQuestion > 1) setIndexOfQuestion(indexOfQuestion - 1);

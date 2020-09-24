@@ -26,6 +26,10 @@ const QuizInstruction = () => {
           'questions',
           JSON.stringify(response.data.data.questions)
         );
+        localStorage.setItem(
+          'timeStart',
+          JSON.stringify(response.data.data.timeStart)
+        );
         let path = `/quiz`;
         history.push(path);
       }
@@ -49,17 +53,18 @@ const QuizInstruction = () => {
       <Header />
       <div className='instructions'>
         <h1>Cách chơi</h1>
-        <h3>Đọc kĩ hướng dẫn trước khi sử dụng.</h3>
+        <h3>Đọc kỹ hướng dẫn trước khi bước vào thử thách nhé! </h3>
         <ul className='browser-default' id='main-list'>
           <li>
-            Các bạn có tổng cộng 10 câu hỏi, được xếp theo mức độ từ dễ đến khó.
+            Các bạn phải hoàn thành 10 câu hỏi được sắp xếp theo thứ tự từ dễ
+            đến khó.
           </li>
           <li>
-            Mỗi câu hỏi có 4 lựa chọn, bạn có thể sửa câu trả lời bằng cách quay
-            trở lại câu hỏi đó.
+            Mỗi câu hỏi có 4 đáp án lựa chọn, bạn có thể thay đổi đáp án bằng
+            cách quay trở lại câu hỏi trước.
           </li>
-          <li>Thời gian làm bài được tính khi bạn ấn nút Bắt đầu.</li>
-          <li>Mỗi bạn chỉ được 1 lần làm quiz.</li>
+          <li>Thời gian làm bài sẽ được tính khi bạn ấn vào ô Bắt đầu.</li>
+          <li>Mỗi bạn chỉ được làm 1 bài Quiz duy nhất.</li>
         </ul>
         <div>
           <button className='start-button' onClick={handleClick}>

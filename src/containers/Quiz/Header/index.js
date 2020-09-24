@@ -1,8 +1,11 @@
 import React from 'react';
-import Timer from 'react.timer';
+
+import Timer from '../../../components/Timer';
+
 import { Progress } from 'antd';
 import 'antd/dist/antd.css';
 const Header = ({ indexOfQuestion }) => {
+  const timeStart = JSON.parse(localStorage.getItem('timeStart'));
   return (
     <nav>
       <div className='header'>
@@ -11,9 +14,10 @@ const Header = ({ indexOfQuestion }) => {
           <p>{indexOfQuestion}/10</p>
           <Progress percent={indexOfQuestion * 10} showInfo={false} />
         </div>
+
         <div className='header-timer'>
-          <i className='fa fa-clock'></i>
-          <Timer />
+          <i className='fa fa-stopwatch'></i>
+          <Timer initialTime={timeStart} />
         </div>
       </div>
     </nav>
