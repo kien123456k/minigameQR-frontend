@@ -14,7 +14,6 @@ const WelcomePage = () => {
   const [isError, setIsError] = useState(false);
   const onSubmit = async (data) => {
     try {
-      console.log('hihi');
       setIsSubmitted(true);
       setIsError(false);
       const token = JSON.parse(localStorage.getItem('token'));

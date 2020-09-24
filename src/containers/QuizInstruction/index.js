@@ -35,9 +35,7 @@ const QuizInstruction = () => {
       }
     } catch (err) {
       if (err.response.status === 403) {
-        console.log('wrong');
         let path = '/quiz-summary';
-        console.log(history);
         history.push(path);
       } else if (err.response.status === 400) {
         localStorage.removeItem('token');

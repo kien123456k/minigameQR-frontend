@@ -5,7 +5,6 @@ import Axios from 'axios';
 
 const TokenCheck = (props) => {
   const [isValid, setIsValid] = useState(false);
-  console.log('tokencheck');
   const tokenCheck = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
     try {
@@ -24,12 +23,7 @@ const TokenCheck = (props) => {
   useEffect(() => {
     tokenCheck();
   }, []);
-  return (
-    <Fragment>
-      {console.log(isValid)}
-      {isValid ? props.component : <InvalidToken />}
-    </Fragment>
-  );
+  return <Fragment>{isValid ? props.component : <InvalidToken />}</Fragment>;
 };
 
 export default TokenCheck;
