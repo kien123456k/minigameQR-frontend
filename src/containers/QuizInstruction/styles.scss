@@ -29,13 +29,21 @@
     margin-bottom: 15px;
   }
   .start-button {
-    background-color: gainsboro;
-    padding: 10px;
-    border-radius: 10px;
-    color: black;
+    background-color: white;
+    color: #37af47;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
     margin: 5px auto;
     display: flex;
     align-items: center;
+  }
+  .start-button:hover {
+    background-color: blanchedalmond;
+    transition: 1s;
   }
   img {
     width: 80%;

@@ -6,6 +6,7 @@ import InputField from '../../components/InputField';
 import './styles.scss';
 import logoMiniGame from '../../assets/images/logo.png';
 import { post } from '../../utils/ApiCaller';
+
 const WelcomePage = () => {
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
@@ -22,8 +23,11 @@ const WelcomePage = () => {
         studentID: data.studentID,
       });
       if (response.data.success) {
-        localStorage.setItem('name', data.name);
-        localStorage.setItem('studentID', data.studentID);
+        localStorage.setItem('name', JSON.stringify(data.name));
+        localStorage.setItem(
+          'studentID',
+          JSON.stringify(data.studentID.toUpperCase())
+        );
         // redirect to Introduction
         let path = '/quiz-instruction';
         history.push(path);
@@ -32,7 +36,7 @@ const WelcomePage = () => {
       if (ex.response && ex.response.status === 403) {
         setIsSubmitted(false);
         setIsError(true);
-      } else if (ex.response.status === 400) {
+      } else if (ex.response && ex.response.status === 400) {
         localStorage.removeItem('token');
         localStorage.removeItem('studentID');
         localStorage.removeItem('name');
@@ -71,7 +75,7 @@ const WelcomePage = () => {
         <span className='error' style={{ display: !isError && 'none' }}>
           Vui lòng nhập đúng MSSV và tên đã đăng kí với mã QR này.
         </span>
-        <button className='login-button'>
+        <button className='login-button' disabled={isSubmitted}>
           <i
             className='fa fa-refresh fa-spin'
             style={{ display: !isSubmitted && 'none' }}

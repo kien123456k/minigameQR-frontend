@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { API_ROOT_URL } from '../../configurations';
 import Question from './Question';
 import Answer from './Answer';
 import './styles.scss';
 import Header from './Header';
+import { useHistory } from 'react-router-dom';
 const Quiz = () => {
   const data = JSON.parse(localStorage.getItem('questions'));
   const token = JSON.parse(localStorage.getItem('token'));
-  const name = localStorage.getItem('name');
-  const studentID = localStorage.getItem('studentID');
+  const name = JSON.parse(localStorage.getItem('name'));
+  const studentID = JSON.parse(localStorage.getItem('studentID'));
+  const history = useHistory();
   const [indexOfQuestion, setIndexOfQuestion] = useState(1);
-  const [arrOfAnswer, setArrOfAnswer] = useState([
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-  ]);
+  const [arrOfAnswer, setArrOfAnswer] = useState(
+    JSON.parse(localStorage.getItem('answer')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  );
+  useEffect(() => {
+    localStorage.setItem('answer', JSON.stringify(arrOfAnswer));
+  }, [arrOfAnswer]);
   const [isOpen, setIsOpen] = useState(false);
   const preQuestion = () => {
     if (indexOfQuestion > 1) setIndexOfQuestion(indexOfQuestion - 1);
@@ -49,9 +45,21 @@ const Quiz = () => {
           answer: arrOfAnswer,
         },
       });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+      if (response.data.success) {
+        let path = '/quiz-summary';
+        history.push(path);
+      }
+    } catch (ex) {
+      if (ex.response && ex.response.status === 403) {
+        let path = '/quiz-summary';
+        history.push(path);
+      } else if (ex.response && ex.response.status === 400) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('studentID');
+        localStorage.removeItem('name');
+        let path = '/invalid-token';
+        history.push(path);
+      }
     }
   };
   return (
