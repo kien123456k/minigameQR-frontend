@@ -6,8 +6,9 @@ const QuizSummary = () => {
     <div>
       <Header />
       <div className='summary-container'>
-        <h1>Chúc mừng bạn đã hoàn thành bài Quiz.</h1>
-        <h3>Vui lòng theo dõi Fanpage F-Code để đón nhận kết quả nhé!!</h3>
+        <h2>Chúc mừng bạn đã hoàn thành bài Quiz.</h2>
+        <h4>Vui lòng theo dõi Fanpage F-Code để đón nhận kết quả nhé!!</h4>
+        <h4>Hẹn gặp lại các bạn vào lúc 14h chiều nay nha!!</h4>
       </div>
     </div>
   );

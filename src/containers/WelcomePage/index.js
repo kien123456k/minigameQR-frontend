@@ -20,7 +20,7 @@ const WelcomePage = () => {
       const response = await post('/user/register', {
         token: token,
         name: data.name,
-        studentID: data.studentID,
+        studentID: data.studentID.toUpperCase(),
       });
       if (response.data.success) {
         localStorage.setItem('name', JSON.stringify(data.name));
@@ -37,9 +37,7 @@ const WelcomePage = () => {
         setIsSubmitted(false);
         setIsError(true);
       } else if (ex.response && ex.response.status === 400) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('studentID');
-        localStorage.removeItem('name');
+        localStorage.clear();
         let path = '/invalid-token';
         history.push(path);
       }
@@ -73,7 +71,7 @@ const WelcomePage = () => {
           })}
         />
         <span className='error' style={{ display: !isError && 'none' }}>
-          Vui lòng nhập đúng MSSV và tên đã đăng kí với mã QR này.
+          MSSV này đã được sử dụng để đăng kí với mã QR khác.
         </span>
         <button className='login-button' disabled={isSubmitted}>
           <i

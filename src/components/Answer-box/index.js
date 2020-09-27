@@ -1,4 +1,5 @@
 import React from 'react';
+
 const AnswerBox = ({
   answer,
   setArrOfAnswer,
@@ -13,6 +14,7 @@ const AnswerBox = ({
       setArrOfAnswer([...arr]);
     }
   };
+
   return (
     <div
       className={

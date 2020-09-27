@@ -41,6 +41,8 @@ const QuizInstruction = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('studentID');
         localStorage.removeItem('name');
+        localStorage.removeItem('answer');
+        localStorage.removeItem('question');
         let path = '/invalid-token';
         history.push(path);
       }
