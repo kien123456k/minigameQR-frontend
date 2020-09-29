@@ -68,6 +68,10 @@ const WelcomePage = () => {
           errors={errors}
           valid={register({
             required: `MSSV không được bỏ trống`,
+            pattern: {
+              value: /^[a-zA-Z]{2}[0-9]{6}$/i,
+              message: 'MSSV không hợp lệ!',
+            },
           })}
         />
         <span className='error' style={{ display: !isError && 'none' }}>
