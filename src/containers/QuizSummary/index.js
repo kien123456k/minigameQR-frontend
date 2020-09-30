@@ -7,8 +7,14 @@ const QuizSummary = () => {
       <Header />
       <div className='summary-container'>
         <h2>Chúc mừng bạn đã hoàn thành bài Quiz.</h2>
-        <h4>Vui lòng theo dõi Fanpage F-Code để đón nhận kết quả nhé!!</h4>
-        <h4>Hẹn gặp lại các bạn vào lúc 14h chiều nay nha!!</h4>
+        <ul>
+          <li>Vui lòng theo dõi page F-Code để đón nhận kết quả nhé!!</li>
+          <li>Hẹn gặp lại các bạn vào lúc 14h chiều nay nha!!</li>
+        </ul>
+
+        <a href='https://www.facebook.com/fcodefpt'>
+          <i className='fab fa fa-facebook-square'></i>
+        </a>
       </div>
     </div>
   );

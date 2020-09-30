@@ -1,6 +1,5 @@
 import React from 'react';
 import AnswerBox from '../../../../components/Answer-box';
-
 const Answer = ({
   multipleChoice,
   indexOfQuestion,

@@ -85,7 +85,6 @@ const Quiz = () => {
         {data.map((e, i) => (
           <TabPane tab={`Câu ${i + 1}`} key={i}>
             <Question content={e.question} />
-
             <div className='quiz-answer'>
               <Answer
                 indexOfQuestion={i + 1}

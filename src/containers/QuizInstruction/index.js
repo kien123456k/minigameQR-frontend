@@ -65,6 +65,7 @@ const QuizInstruction = () => {
           </li>
           <li>Thời gian làm bài sẽ được tính khi bạn ấn vào ô Bắt đầu.</li>
           <li>Mỗi bạn chỉ được làm 1 bài Quiz duy nhất.</li>
+          <li>Ấn vào nút Submit để nộp bài hoàn thành bài quiz.</li>
         </ul>
         <div>
           <button className='start-button' onClick={handleClick}>
