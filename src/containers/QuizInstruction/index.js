@@ -1,16 +1,19 @@
+import { green } from '@material-ui/core/colors';
 import Axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import { API_ROOT_URL } from '../../configurations';
 
 const QuizInstruction = () => {
   const history = useHistory();
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const handleClick = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
     const name = JSON.parse(localStorage.getItem('name'));
     const studentID = JSON.parse(localStorage.getItem('studentID'));
     try {
+      setIsSubmitted(true);
       const response = await Axios({
         method: 'GET',
         url: `${API_ROOT_URL}/user/start`,
@@ -34,6 +37,7 @@ const QuizInstruction = () => {
         history.push(path);
       }
     } catch (err) {
+      setIsSubmitted(false);
       if (err.response.status === 403) {
         let path = '/quiz-summary';
         history.push(path);
@@ -68,7 +72,15 @@ const QuizInstruction = () => {
           <li>Ấn vào nút Submit để nộp bài hoàn thành bài quiz.</li>
         </ul>
         <div>
-          <button className='start-button' onClick={handleClick}>
+          <button
+            className='start-button'
+            onClick={handleClick}
+            disabled={isSubmitted}
+          >
+            <i
+              className='fa fa-refresh fa-spin'
+              style={{ display: !isSubmitted && 'none', color: green }}
+            ></i>{' '}
             Bắt đầu
           </button>
         </div>

@@ -16,6 +16,7 @@ const Quiz = () => {
   const studentID = JSON.parse(localStorage.getItem('studentID'));
   const history = useHistory();
   const [indexOfQuestion, setIndexOfQuestion] = useState(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [arrOfAnswer, setArrOfAnswer] = useState(
     JSON.parse(localStorage.getItem('answer')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   );
@@ -42,6 +43,7 @@ const Quiz = () => {
     setIsOpen(false);
     const arrOfAnswer = JSON.parse(localStorage.getItem('answer'));
     try {
+      setIsSubmitted(true);
       const response = await Axios({
         method: 'POST',
         url: `${API_ROOT_URL}/user/end`,
@@ -58,6 +60,7 @@ const Quiz = () => {
         history.push(path);
       }
     } catch (ex) {
+      setIsSubmitted(false);
       if (ex.response && ex.response.status === 403) {
         let path = '/quiz-summary';
         history.push(path);
@@ -110,7 +113,16 @@ const Quiz = () => {
           </button>
         )}
       </div>
-      <button className='btn-submit' onClick={handleOpenDialog}>
+      <button
+        className='btn-submit'
+        onClick={handleOpenDialog}
+        disabled={isSubmitted}
+        style={{ display: indexOfQuestion !== 10 && 'none' }}
+      >
+        <i
+          className='fa fa-refresh fa-spin'
+          style={{ display: !isSubmitted && 'none' }}
+        ></i>{' '}
         Submit
       </button>
       <div
