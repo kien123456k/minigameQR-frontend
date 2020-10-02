@@ -87,7 +87,16 @@ const Quiz = () => {
       >
         {data.map((e, i) => (
           <TabPane tab={`Câu ${i + 1}`} key={i}>
-            <Question content={e.question} />
+            {e.question.indexOf('https:') !== -1 ? (
+              <img
+                src={e.question}
+                className='img-question'
+                alt='question-loading'
+              />
+            ) : (
+              <Question content={e.question} />
+            )}
+
             <div className='quiz-answer'>
               <Answer
                 indexOfQuestion={i + 1}
