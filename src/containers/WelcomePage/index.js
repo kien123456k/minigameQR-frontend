@@ -16,7 +16,7 @@ const WelcomePage = () => {
       setIsSubmitted(true);
       setIsError(false);
 
-      const response = await get(`/api/user/${data.studentID.toUpperCase()}`);
+      const response = await get(`/user/${data.studentID.toUpperCase()}`);
       if (response.data.success) {
         console.log(response.data.data);
         localStorage.setItem('data', JSON.stringify(response.data.data));
