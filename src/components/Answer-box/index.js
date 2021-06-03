@@ -13,6 +13,7 @@ const AnswerBox = ({
       setArrOfAnswer([...arr]);
     }
   };
+
   return (
     <div
       className={

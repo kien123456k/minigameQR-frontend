@@ -4,5 +4,5 @@ export const timeConvert = (mSec) => {
   let sec = seconds % 60;
   minutes = minutes < 10 ? '0' + minutes : '' + minutes;
   sec = sec < 10 ? '0' + sec : '' + sec;
-  return minutes + ':' + sec;
+  return minutes + ' phút ' + sec + ' giây';
 };

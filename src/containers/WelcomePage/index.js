@@ -5,8 +5,7 @@ import Header from '../../components/Header';
 import InputField from '../../components/InputField';
 import './styles.scss';
 import logoMiniGame from '../../assets/images/logo.png';
-import { post } from '../../utils/ApiCaller';
-
+import { get } from '../../utils/ApiCaller';
 const WelcomePage = () => {
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
@@ -16,32 +15,24 @@ const WelcomePage = () => {
     try {
       setIsSubmitted(true);
       setIsError(false);
-      const token = JSON.parse(localStorage.getItem('token'));
-      const response = await post('/user/register', {
-        token: token,
-        name: data.name,
-        studentID: data.studentID,
-      });
+
+      const response = await get(`/user/${data.studentID.toUpperCase()}`);
       if (response.data.success) {
-        localStorage.setItem('name', JSON.stringify(data.name));
-        localStorage.setItem(
-          'studentID',
-          JSON.stringify(data.studentID.toUpperCase())
-        );
+        console.log(response.data.data);
+        localStorage.setItem('data', JSON.stringify(response.data.data));
+
         // redirect to Introduction
-        let path = '/quiz-instruction';
+        let path = '/quiz-summary';
         history.push(path);
       }
     } catch (ex) {
-      if (ex.response && ex.response.status === 403) {
+      if (ex.response && ex.response.status === 404) {
+        setIsSubmitted(false);
+      } else if (ex.response && ex.response.status === 400) {
         setIsSubmitted(false);
         setIsError(true);
-      } else if (ex.response && ex.response.status === 400) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('studentID');
-        localStorage.removeItem('name');
-        let path = '/invalid-token';
-        history.push(path);
+      } else if (ex.response && ex.response.status === 500) {
+        setIsSubmitted(false);
       }
     }
   };
@@ -50,17 +41,7 @@ const WelcomePage = () => {
       <Header />
       <img className='logoMiniGame' src={logoMiniGame} alt='' />
       <form className='form-wrapper' onSubmit={handleSubmit(onSubmit)}>
-        <InputField
-          register={register}
-          icon={<i className='fa fas fa-user'></i>}
-          name='name'
-          type='text'
-          label='Họ và tên'
-          errors={errors}
-          valid={register({
-            required: `Họ và tên không được bỏ trống`,
-          })}
-        />
+        <p>Vui lòng nhập MSSV để tra cứu kết quả</p>
         <InputField
           register={register}
           icon={<i className='fa fas fa-user'></i>}
@@ -70,10 +51,14 @@ const WelcomePage = () => {
           errors={errors}
           valid={register({
             required: `MSSV không được bỏ trống`,
+            pattern: {
+              value: /^[a-zA-Z]{2}[0-9]{6}$/i,
+              message: 'MSSV không hợp lệ!',
+            },
           })}
         />
         <span className='error' style={{ display: !isError && 'none' }}>
-          Vui lòng nhập đúng MSSV và tên đã đăng kí với mã QR này.
+          MSSV không tồn tại.
         </span>
         <button className='login-button' disabled={isSubmitted}>
           <i

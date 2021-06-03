@@ -3,10 +3,11 @@ import { Switch } from 'react-router-dom';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
 import QuizInstruction from '../containers/QuizInstruction';
-import Quiz from '../containers/Quiz';
+
 import WelcomePage from '../containers/WelcomePage';
 import InvalidToken from '../containers/InvalidToken';
 import QuizSummary from '../containers/QuizSummary';
+import QuizPlay from '../containers/QuizPlay';
 
 export const publicRoutes = [
   {
@@ -19,6 +20,7 @@ export const publicRoutes = [
     name: 'invalid-token',
     component: InvalidToken,
   },
+  { path: '/quiz-summary', name: 'quiz-summary', component: QuizSummary },
 ];
 export const privateRoutes = [
   {
@@ -29,7 +31,7 @@ export const privateRoutes = [
   {
     path: '/quiz',
     name: 'quiz',
-    component: Quiz,
+    component: QuizPlay,
   },
   { path: '/quiz-summary', name: 'quiz-summary', component: QuizSummary },
 ];
